@@ -12,17 +12,21 @@ class Review extends Model
     protected $table = 'reviews';
     protected $fillable = [
         'user_id',
-        'product_id',
-        'review',
+        'animal_id',
+        'food_id',
+        'email',
+        'comment',
         'rating',
     ];
 
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
+    public function animal()
+    {
+        return $this->belongsTo(Animal::class, 'animal_id');
     }
 }

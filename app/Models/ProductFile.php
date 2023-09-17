@@ -11,7 +11,7 @@ class ProductFile extends Model
     protected $table = 'product_files';
 
     protected $fillable = [
-        'product_id',
+        'animal_id',
         'type',
         'name',
         'description',

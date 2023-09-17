@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helper\CustomHelper;
 use App\Helper\RedirectHelper;
+use App\Models\Animal;
+use App\Models\Categories;
+use App\Models\LoginSlider;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -13,7 +17,9 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     public function login(Request $request) {
+        
         if ($request->isMethod('POST')) {
+            // return $request;
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|string|min:' . User::$minimumPasswordLength
@@ -31,9 +37,13 @@ class AuthController extends Controller
             }
             return RedirectHelper::backWithInput('<strong>Sorry!!!</strong> Your email or password is wrong.');
         }
-//    $data['images'] = BackgroundImage::where('status',BackgroundImage::$statusArray[0])->get();
+   $data['images'] = LoginSlider::where('status',LoginSlider::$statusArray[0])->get();
+   $data['animal'] = Animal::where('status', '=', Animal::$statusArrays[0])->get();
+            $data['category'] = Categories::where('status', '=', Categories::$statusArrays[0])->get();
+            $data['subcategory'] = SubCategory::where('status', '=', SubCategory::$statusArrays[0])->get();
+            $data['cartItems'] = \Cart::content();
         // return $data;
-        return view('admin.auth.login');
+        return view('admin.auth.login', $data);
     }
 
     public function register(Request $request) {

@@ -42,6 +42,8 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th width="200">Created</th>
+                                    <th width="50">Today Deal</th>
+                                    <th width="50">Featured</th>
     
                                     <th width="50">Status</th>
                                     <th class="hidden-phone" width="40">Option</th>
@@ -58,6 +60,37 @@
 
                                         
 
+                                        <td class="text-capitalize p-1" width="100">
+                                            <div class="onoffswitchdeal">
+                                                <input type="checkbox" name="onoffswitchdeal" class="onoffswitchdeal-checkbox"
+                                                       @if($val->today_deal == \App\Models\Animal::$todayDealArrays[0])
+                                                           checked
+                                                       @endif
+                                                       data-id="{{ $val->id }}"
+                                                       id="myonoffswitchdeal{{ ($key+1) }}">
+                                                <label class="onoffswitchdeal-label" for="myonoffswitchdeal{{ ($key+1) }}">
+                                                    <span class="onoffswitchdeal-inner"></span>
+                                                    <span class="onoffswitchdeal-switch"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+
+
+
+                                        <td class="text-capitalize p-1" width="60">
+                                            <div class="onoffswitchtwo">
+                                                <input type="checkbox" name="onoffswitchtwo" class="onoffswitchtwo-checkbox"
+                                                       @if($val->featured == \App\Models\Animal::$featuredArrays[0])
+                                                           checked
+                                                       @endif
+                                                       data-id="{{ $val->id }}"
+                                                       id="myonoffswitchtwo{{ ($key+1) }}">
+                                                <label class="onoffswitchtwo-label" for="myonoffswitchtwo{{ ($key+1) }}">
+                                                    <span class="onoffswitchtwo-inner"></span>
+                                                    <span class="onoffswitchtwo-switch"></span>
+                                                </label>
+                                            </div>
+                                        </td>
 
 
                                         
@@ -184,6 +217,69 @@
 
 
 
+
+
+
+            $(document).on('change', 'input[name="onoffswitchtwo"]', function () {
+                var featured = 'no';
+                var id = $(this).data('id')
+                var isChecked = $(this).is(":checked");
+                if (isChecked) {
+                    featured = 'yes';
+                }
+                $.ajax({
+                    url: "{{ route('ajax.update.animal.featured') }}",
+                    method: "post",
+                    dataType: "html",
+                    data: {'id': id, 'featured': featured},
+                    success: function (data) {
+                        if (data === "success") {
+                               Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        }
+                    }
+                });
+            });
+
+
+
+            $(document).on('change', 'input[name="onoffswitchdeal"]', function () {
+                var today_deal = 'no';
+                console.log(today_deal);
+                var id = $(this).data('id')
+                console.log("log2", id);
+                var isChecked = $(this).is(":checked");
+                console.log("log3", id);
+                if (isChecked) {
+                    today_deal = 'yes';
+                }
+                $.ajax({
+                    url: "{{ route('ajax.update.animal.today_deal') }}",
+                    method: "post",
+                    dataType: "html",
+                    data: {'id': id, 'today_deal': today_deal},
+                    success: function (data) {
+                        if (data === "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                {{--  text: 'Updated successfully.',  --}}
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+
+                        }
+                    }
+                });
+            });
 
 
             

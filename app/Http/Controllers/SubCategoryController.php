@@ -18,13 +18,22 @@ class SubCategoryController extends Controller
         // return $categories;
         return view('admin.subcategory.list', $data, compact('categories'));
     }
+
+
+
+
     public function manage($id = null) {
-        $data['categories'] = Categories::all();
+        
         if ($data['subcategory'] = SubCategory::find($id)) {
+          $data['category'] = Categories::get();
+          // return $data;
           return view('admin.subcategory.manage', $data);
         }
         return RedirectHelper::routeWarning('subcategory.list', '<strong>Sorry!!!</strong> User not found');
       }
+
+
+
 
     public function create($id = null){
         return view('admin.subcategory.create');
@@ -32,7 +41,7 @@ class SubCategoryController extends Controller
 
     public function store(Request $request){
         // return $request;
-        $message = '<strong>Congratulations!!!</strong> Category successfully';
+        $message = '<strong>Congratulations!!!</strong>Sub Category successfully';
         $rules = [
             'category_id' => 'required|string',
             'subcategory_name' => 'required|string',

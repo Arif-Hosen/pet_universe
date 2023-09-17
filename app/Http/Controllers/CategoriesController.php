@@ -49,11 +49,8 @@ class CategoriesController extends Controller
 
           try{
 
-            $values = implode(',', $request->input('category_name'));
-            // return $values;
 
-    // Save the values to the database
-    Categories::create(['category_name' => $values]);
+            $category->category_name = $request->category_name;
             $category->category_slug = $request->category_slug;
             $category->status = $request->status;
 

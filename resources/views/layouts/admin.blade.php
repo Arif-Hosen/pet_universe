@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>Admin | Dashboard</title>
 
-    <meta content="MD.Raihan Afroz" name="author" />
+    <meta content="Ours" name="author" />
     <meta content="RAST" name="company" />
     <meta content="RAST" name="description" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -60,8 +60,7 @@
                 <div class="text-center" style="padding-right: 35px">
                     <a href="{{ route('home') }}" class="logo">
                         <img style="background: whitesmoke;display: unset"
-                            src="{{ asset($company_logo ?? 'assets/images/logo.png') }}" height="50"
-                            alt="logo"></a>
+                            src="{{ asset('assets/site/images/logo/logo.png') }}" height="50" alt="logo"></a>
                 </div>
             </div>
             <div class="sidebar-inner slimscrollleft">
@@ -78,6 +77,13 @@
                         {{--            </a></li> --}}
                         {{--          @endif --}}
 
+                        <li class="has_sub">
+                            <a class="waves-effect"><i class="mdi mdi-account-multiple"></i><span> Orders <span
+                                        class="pull-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="{{ route('order.list') }}">List of Order</a></li>
+                            </ul>
+                        </li>
                         @if (\App\Helper\CustomHelper::canView('Create User|Manage User|Delete User|View User|List Of User', 'Super Admin'))
                             <li class="has_sub">
                                 <a class="waves-effect"><i class="mdi mdi-account-multiple"></i><span> Users <span
@@ -95,7 +101,7 @@
 
                         @if (\App\Helper\CustomHelper::canView('Create Role|Manage Role|Delete Role|View Role|List Of Role', 'Super Admin'))
                             <li class="has_sub">
-                                <a class="waves-effect"><i class="mdi mdi-account-multiple"></i><span> Roles <span
+                                <a class="waves-effect"><i class="mdi mdi-lock-open"></i><span> Roles <span
                                             class="pull-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                                 <ul class="list-unstyled">
                                     @if (\App\Helper\CustomHelper::canView('Create Role', 'Super Admin'))
@@ -109,10 +115,12 @@
                         @endif
                         @if (\App\Helper\CustomHelper::canView('Manage Permission', 'Super Admin'))
                             <li><a href="{{ route('permission.manage') }}" class="waves-effect">
-                                    <i class="mdi mdi-image-album"></i>
+                                    <i class="mdi mdi-block-helper"></i>
                                     <span> Permission</span>
                                 </a></li>
                         @endif
+
+
 
                         @if (
                             \App\Helper\CustomHelper::canView(
@@ -130,8 +138,18 @@
                                 'Create Category|Manage Category|Delete Category|View Category|List Of Category',
                                 'Super Admin'))
                             <li><a href="{{ route('subcategory.list') }}" class="waves-effect">
-                                    <i class="mdi mdi-image-album"></i>
+                                    <i class="mdi mdi-certificate"></i>
                                     <span> Sub Categories</span>
+                                </a></li>
+                        @endif
+
+                        @if (
+                            \App\Helper\CustomHelper::canView(
+                                'Create Category|Manage Category|Delete Category|View Category|List Of Category',
+                                'Super Admin'))
+                            <li><a href="{{ route('slider.list') }}" class="waves-effect">
+                                    <i class="mdi mdi-image-album"></i>
+                                    <span> Slider</span>
                                 </a></li>
                         @endif
 
@@ -141,7 +159,7 @@
                                 'Create Category|Manage Category|Delete Category|View Category|List Of Category',
                                 'Super Admin'))
                             <li><a href="{{ route('pickuppoint.list') }}" class="waves-effect">
-                                    <i class="mdi mdi-image-album"></i>
+                                    <i class="mdi mdi-recycle"></i>
                                     <span>Pickup Point</span>
                                 </a></li>
                         @endif
@@ -153,7 +171,7 @@
                                 'Create Animal|Manage Animal|Delete Animal|View Animal|List Of Animal',
                                 'Super Admin'))
                             <li class="has_sub">
-                                <a class="waves-effect"><i class="mdi mdi-account-multiple"></i><span>Animal<span
+                                <a class="waves-effect"><i class="mdi mdi-cat"></i><span>Animal<span
                                             class="pull-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                                 <ul class="list-unstyled">
                                     @if (\App\Helper\CustomHelper::canView('Create Animal', 'Super Admin'))
@@ -164,6 +182,52 @@
                                     @endif
                                 </ul>
                             </li>
+                        @endif
+
+
+                        @if (
+                            \App\Helper\CustomHelper::canView(
+                                'Create Setting|Manage Setting|Delete Setting|View Setting|List Of Setting',
+                                'Super Admin'))
+                            <li class="has_sub">
+                                <a class="waves-effect"><i class="mdi mdi-settings"></i><span>Setting<span
+                                            class="pull-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                                <ul class="list-unstyled">
+                                    @if (\App\Helper\CustomHelper::canView('Create Setting', 'Super Admin'))
+                                        <li><a href="{{ route('setting.create') }}">Create Setting</a></li>
+                                    @endif
+                                    @if (\App\Helper\CustomHelper::canView('Manage Setting|Delete Setting|View Setting|List Of Setting', 'Super Admin'))
+                                        <li><a href="{{ route('setting.list') }}">List of Setting</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+                        {{--  @if (
+                            \App\Helper\CustomHelper::canView(
+                                'Create Food|Manage Food|Delete Food|View Food|List Of Food',
+                                'Super Admin'))
+                            <li class="has_sub">
+                                <a class="waves-effect"><i class="mdi mdi-account-multiple"></i><span>Food<span
+                                            class="pull-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                                <ul class="list-unstyled">
+                                    @if (\App\Helper\CustomHelper::canView('Create Food', 'Super Admin'))
+                                        <li><a href="{{ route('food.create_store') }}">Create Food</a></li>
+                                    @endif
+                                    @if (\App\Helper\CustomHelper::canView('Manage Animal|Delete Animal|View Animal|List Of Animal', 'Super Admin'))
+                                        <li><a href="{{ route('food.list') }}">List of Food</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif  --}}
+
+                        @if (
+                            \App\Helper\CustomHelper::canView(
+                                'Create SiteReview|Manage SiteReview|Delete SiteReview|View SiteReview|List Of SiteReview',
+                                'Super Admin|Customer'))
+                            <li><a href="{{ route('sitereview.list') }}" class="waves-effect">
+                                    <i class="mdi mdi-image-album"></i>
+                                    <span> Review</span>
+                                </a></li>
                         @endif
 
 
@@ -198,7 +262,7 @@
                             </div>
                         </div>
 
-                        <ul class="list-inline float-right mb-0">
+                        <ul class="float-right mb-0 list-inline">
                             <!-- Fullscreen -->
                             <li class="list-inline-item dropdown notification-list hidden-xs-down">
                                 <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
@@ -219,7 +283,7 @@
                                     data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                                     aria-expanded="false">
                                     <img src="{{ auth()->user()->profile_photo_url }}" alt="user"
-                                        class="h-8 w-8 rounded-full object-cover">
+                                        class="object-cover w-8 h-8 rounded-full">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                                     <a class="dropdown-item" href="{{ route('profile') }}"><i
@@ -233,7 +297,7 @@
                             </li>
                         </ul>
                         <!-- Page title -->
-                        <ul class="list-inline menu-left mb-0">
+                        <ul class="mb-0 list-inline menu-left">
                             <li class="list-inline-item">
                                 <button type="button" class="button-menu-mobile open-left waves-effect">
                                     <i class="ion-navicon"></i>
@@ -253,9 +317,9 @@
                 </div> <!-- Page content Wrapper -->
             </div>
             <footer class="footer">
-                © 2022 {{ env('APP_NAME') }}
-                <span class="text-muted hidden-xs-down pull-right">Developed & Maintained by <a
-                        href="https://nrast.com/" target="_blank">RAST</a></span>
+                © 2023 {{ env('APP_NAME') }}
+                <span class="text-muted hidden-xs-down pull-right">Developed & Maintained by <a href=""
+                        target="_blank">OURS</a></span>
             </footer>
         </div>
     </div>

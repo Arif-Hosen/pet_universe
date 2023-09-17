@@ -40,7 +40,7 @@
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <label class="control-label">Email<span class="text-danger">*</span></label>
+                      <label class="control-label">Category Slug<span class="text-danger">*</span></label>
                       <input type="text" name="category_slug" placeholder="Email" required value="{{ $category->category_slug }}"
                              class="form-control @error('category_slug') is-invalid @enderror">
                       @error('category_slug')

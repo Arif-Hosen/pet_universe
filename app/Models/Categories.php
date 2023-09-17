@@ -18,4 +18,9 @@ class Categories extends Model
     ];
 
     public static $statusArrays = ['active', 'inactive'];
+
+    public function subcategory()
+    {
+        return $this->hasMany(SubCategory::class, 'category_id', 'id');
+    }
 }

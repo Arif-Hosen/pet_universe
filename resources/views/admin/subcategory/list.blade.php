@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="control-label">Status<span class="text-danger">*</span></label>
+                                <label class="control-label">Category<span class="text-danger">*</span></label>
                                 <select name="category_id" required class="form-control @error('category_id') is-invalid @enderror">
                                     <option value="">Choose a category Status</option>
                                     @foreach($categories as $e)

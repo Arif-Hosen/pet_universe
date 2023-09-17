@@ -38,8 +38,10 @@ class ReviewController extends Controller
         $message = '<strong>Congratulations!!!</strong> Pickup Point successfully';
         $rules = [
             'user_id' => 'nullable',
-            'product_id' => 'nullable',
-            'review' => 'nullable',
+            'animal_id' => 'nullable',
+            'food_id' => 'nullable',
+            'email' => 'nullable|string',
+            'comment' => 'nullable|string',
             'rating' => 'nullable',
             // 'status' = ['required|string', Rule::in(\App\Models\Review::$statusArrays)],
         ];
@@ -55,13 +57,16 @@ class ReviewController extends Controller
 
           try{
             $review->user_id=auth()->id();
-            $check = DB::table('reviews')->where('user_id', auth()->id())->where('product_id', $request->product_id)->first();
+            $check = DB::table('reviews')->where('user_id', auth()->id())->where('animal_id', $request->animal_id)->first();
             if($check){
                 return response()->json(['message' => 'Faild!!! Already Submited', 'title' => 'error', 'error' => true]);
             }
 
-            $review->product_id = $request->product_id;
-            $review->review = $request->review;
+
+            $review->animal_id = $request->animal_id;
+            $review->food_id = $request->food_id;
+            $review->email = $request->email;
+            $review->comment = $request->comment;
             $review->rating = $request->rating;
 
             if($review->save()){
